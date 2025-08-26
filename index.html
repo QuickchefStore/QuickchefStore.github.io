@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuickChef Store</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#fafafa; color:#2D2D2D; }
+    header { background:#FF8C42; color:white; padding:2rem; text-align:center; }
+    header svg { width:60px; height:60px; vertical-align:middle; }
+    header h1 { margin:0.5rem 0 0; font-size:2rem; }
+    header p { margin:0.2rem 0 1rem; font-size:1.2rem; color:#fff; }
+    header a { display:inline-block; background:#6FCF97; color:white; padding:0.8rem 1.5rem; border-radius:8px; text-decoration:none; font-weight:bold; }
+    .products { display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:1.5rem; padding:2rem; }
+    .product { background:white; padding:1rem; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1); text-align:center; }
+    .product h2 { font-size:1.2rem; margin:0.5rem 0; }
+    .product p { color:#555; }
+  </style>
+</head>
+<body>
+  <header>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+      <rect x="12" y="20" width="40" height="30" rx="5" stroke="white" stroke-width="4"/>
+      <path d="M32 26 L32 44 M24 35 L40 35" stroke="white" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <h1>QuickChef</h1>
+    <p>Smart Kitchen Appliances that Make Cooking Easy</p>
+    <a href="#shop">Shop Now</a>
+  </header>
+
+  <section id="shop" class="products">
+    <div class="product">
+      <h2>QuickBlend Mini Blender</h2>
+      <p>$39.99</p>
+      <div id="paypal-button-container-1"></div>
+    </div>
+    <div class="product">
+      <h2>SpeedyChop Food Processor</h2>
+      <p>$59.99</p>
+      <div id="paypal-button-container-2"></div>
+    </div>
+    <div class="product">
+      <h2>EasyCook MultiPot</h2>
+      <p>$89.99</p>
+      <div id="paypal-button-container-3"></div>
+    </div>
+  </section>
+
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_LIVE_CLIENT_ID&currency=USD"></script>
+  <script>
+    function renderPayPalButton(containerId, amount) {
+      paypal.Buttons({
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{ amount: { value: amount } }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            alert('Transaction completed by ' + details.payer.name.given_name);
+          });
+        }
+      }).render(containerId);
+    }
+    renderPayPalButton('#paypal-button-container-1', '39.99');
+    renderPayPalButton('#paypal-button-container-2', '59.99');
+    renderPayPalButton('#paypal-button-container-3', '89.99');
+  </script>
+</body>
+</html>
