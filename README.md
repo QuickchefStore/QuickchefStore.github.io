@@ -1,1 +1,0 @@
-# QuickchefStore.github.io
